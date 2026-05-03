@@ -52,7 +52,25 @@ const MENU: Exercise[] = [
   { id: "legcurl", category: "脚", name: "レッグカール" },
 ];
 
-const CATEGORIES = ["胸", "肩", "腕", "腹筋", "背中", "脚"];
+const CATEGORIES = [{
+  id: 1,
+  name: "胸"
+}, {
+  id: 2,
+  name: "肩"
+}, {
+  id: 3,
+  name: "腕"
+}, {
+  id: 4,
+  name: "腹筋"
+}, {
+  id: 5,
+  name: "背中"
+}, {
+  id: 6,
+  name: "脚"
+}];
 
 const CATEGORY_COLORS: Record<string, string> = {
   胸: "#ff6b6b",
@@ -343,22 +361,24 @@ export default function TrainingMenu() {
         <View style={styles.right}>
           <View style={styles.categoryWrap}>
             {CATEGORIES.map((cat) => (
-              <TouchableOpacity style={[
+              <TouchableOpacity 
+              key={cat.id}
+              style={[
                 styles.categoryTab,
-                activeCategory === cat && {
-                  borderColor: CATEGORY_COLORS[cat],
+                activeCategory === cat.name && {
+                  borderColor: CATEGORY_COLORS[cat.name],
                 },
               ]}
-                onPress={() => setActiveCategory(cat)}
+                onPress={() => setActiveCategory(cat.name)}
               >
                 <Text
                   style={[
                     styles.categoryText,
-                    activeCategory === cat && {
-                      color: CATEGORY_COLORS[cat],
+                    activeCategory === cat.name && {
+                      color: CATEGORY_COLORS[cat.name],
                     },
                   ]}
-                >{cat}</Text>
+                >{cat.name}</Text>
               </TouchableOpacity>
             ))}
           </View>
@@ -441,7 +461,7 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     color: "#fff",
-    fontWeight: "700", 
+    fontWeight: "700",
     marginBottom: 12,
   },
   empty: {
